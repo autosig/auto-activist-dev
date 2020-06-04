@@ -17,7 +17,8 @@
   },
   "dependencies": {
     "jquery": "^3.5.0",
-    "moment": "~2.24.0"
+    "moment": "~2.24.0",
+    "glob": "latest"
   },
   "devDependencies": {
     "@types/chrome": "0.0.100",

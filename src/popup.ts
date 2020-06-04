@@ -22,11 +22,15 @@ $(function() {
   $('#changeBackground').click(()=>{
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
-        color: '#555555'
-      },
-      function(msg) {
-        console.log("result message:", msg);
-      });
+            color: '#555555'
+          },
+          function(msg) {
+            console.log("result message:", msg);
+          });
     });
+  });
+
+  $('#openHomepage').on('click', () => {
+    chrome.tabs.create({ 'url': '/homepage.html' });
   });
 });
