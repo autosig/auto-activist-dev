@@ -8,13 +8,13 @@ import {TabResponseMessage} from "./automation/common";
 console.log('hello!');
 
 const userData: UserData = {
-    __FIRST_NAME__: 'Alexander',
-    __MIDDLE_NAME__: 'Burr',
-    __LAST_NAME__: 'Hamilton',
-    __EMAIL__: 'aham@aham.com',
-    __POSTAL_CODE__: '00631',
-    __STATE_ABBREV__: 'CA',
-    __CITY__: 'North Pole'
+    firstName: 'Alexander',
+    middleName: 'Burr',
+    lastName: 'Hamilton',
+    emailAddress: 'aham@aham.com',
+    postalCode: '00631',
+    stateAbbrev: 'CA',
+    city: 'North Pole'
 
 };
 const template = 'org.change.js';

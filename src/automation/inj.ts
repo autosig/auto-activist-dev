@@ -1,12 +1,15 @@
 import { TabResponseMessage } from './common';
 import * as Simulate from 'simulate';
 
+const OVERLAY_ID = 'autoActivistOverlayID';
+
 export async function run(main: () => Promise<TabResponseMessage>, acceptableUrlRegexps?: [RegExp]) {
     let currentURL = window.location.href;
     // if (acceptableUrlRegexps !== null && !matchRegexArray(currentURL, acceptableUrlRegexps)) {
     //     sendFailure('Current URL ' + currentURL + ' does not match any of ' + acceptableUrlRegexps);
     //     return;
     // }
+    setupBodyWrapper();
     let result = await main();
     chrome.runtime.sendMessage(result);
 }
@@ -76,7 +79,7 @@ export async function deleteText(elem) {
     let text = elem.value;
     const chars = text.split('');
     await chars.forEach(_ => sendKey(elem, String.fromCharCode(127)));
-    sendKey(elem, ' ');
+    await sendKey(elem, ' ');
 }
 
 export async function click(elem) {
@@ -93,4 +96,28 @@ export async function setCheckbox(elem, status: 'true' | 'false') {
     elem.click();
     elem['value'] = 'false';
     elem['checked'] = false;
+}
+
+function setupBodyWrapper() {
+    let overlay = document.createElement('div');
+    overlay.style.backgroundColor = 'green';
+    overlay.style.opacity = '90%';
+    overlay.style.position = 'fixed';
+    overlay.style.zIndex = '1000';
+    overlay.style.height = overlay.style.width = '100%';
+    overlay.style.top = overlay.style.right = overlay.style.left = overlay.style.bottom = '0';
+    overlay.style.pointerEvents = 'none';
+    overlay.style.cursor = 'none';
+    overlay.setAttribute('id', OVERLAY_ID);
+
+    let text = document.createElement('p');
+    text.innerText = 'Auto-Activist!';
+    text.style.fontSize = '5em';
+    text.style.color = 'white';
+    text.style.position = 'relative';
+    text.style.top = text.style.left = '50%';
+    // text.style.justifyContent = 'center';
+
+    overlay.appendChild(text);
+    document.body.appendChild(overlay);
 }
