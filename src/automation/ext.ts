@@ -1,9 +1,4 @@
-
-type TabResponse = {
-    success: Boolean,
-    err: string
-}
-
+import { TabResponseMessage } from './common';
 
 /**
  * Opens a new tab and injects the
@@ -13,13 +8,14 @@ type TabResponse = {
  * @param timeoutMs Timeout for tab to compete its task
  */
 export function executeJs(
-    url: string, jsInject: string, callback: (resp: TabResponse) => void, timeoutMs: number = 10000) {
+    url: string, jsInject: string, callback: (resp: TabResponseMessage) => void, timeoutMs: number = 10000) {
 
     chrome.tabs.create({ 'url': url, }, function (tab) {
         /* tab removal that can only be called once */
-        let removeTab = () => {
-            removeTab = () => {};
+        let close = (res: TabResponseMessage) => {
+            close = () => {};
             chrome.tabs.remove(tab.id);
+            callback(res);
         };
 
         /* setup a callback for the new tab to trigger upon completion of its code */
@@ -28,18 +24,15 @@ export function executeJs(
                 return;
             console.log("received request from tab: " + req);
             chrome.runtime.onMessage.removeListener(onMessage);
-            removeTab();
-            callback(req); // provide the tab's message back to the caller
+            close(req); // provide the tab's message back to the caller
         }
         chrome.runtime.onMessage.addListener(onMessage);
 
         /* inject the js file */
-        chrome.tabs.executeScript(tab.id, {file: jsInject}, function() {
+        chrome.tabs.executeScript(tab.id, {code: jsInject}, function() {
             /* after the script is done loading and finished synchronous execution, start a timeout */
             setTimeout(() => {
-                removeTab();
-                callback({ success: false, err: 'timeout' });
-                console.log('experienced timeout...')
+                close({ success: false, err: 'timeout' });
             }, timeoutMs);
         });
     });

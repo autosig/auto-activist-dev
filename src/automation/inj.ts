@@ -1,10 +1,6 @@
+import { TabResponseMessage } from './common';
 
-type TabRetVal = {
-    success: boolean,
-    err?: string
-}
-
-export async function run(main: () => Promise<TabRetVal>, acceptableUrlRegexps?: [RegExp]) {
+export async function run(main: () => Promise<TabResponseMessage>, acceptableUrlRegexps?: [RegExp]) {
     let currentURL = window.location.href;
     // if (acceptableUrlRegexps !== null && !matchRegexArray(currentURL, acceptableUrlRegexps)) {
     //     sendFailure('Current URL ' + currentURL + ' does not match any of ' + acceptableUrlRegexps);
@@ -34,4 +30,8 @@ function matchRegexArray(str: string, regexArray: [RegExp]): Boolean {
             return true;
     }
     return false;
+}
+
+export function getElementByXpath(path) {
+    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }

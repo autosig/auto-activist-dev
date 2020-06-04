@@ -1,11 +1,11 @@
-import { run } from '../automation/inj';
-
+import { run, getElementByXpath } from '../automation/inj';
 
 run(async () => {
-    console.log('doing great over here!');
+    let fName = "__FIRST_NAME__";
+    let lName = "__LAST_NAME__";
+
     document.getElementById('body').style.backgroundColor = 'red';
-    await new Promise(r => setTimeout(r, 2500));
+    getElementByXpath("//input[@title='Search']")["value"] = `my name is ${fName} ${lName}`;
+    await new Promise(r => setTimeout(r, 2000));
     return { success: true };
 }, [/https?:\/\/.*.google.com/]);
-
-
