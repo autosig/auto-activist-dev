@@ -13,4 +13,5 @@ npm run build
 
 Load `dist` directory
 
-
+## Using the extension
+Click the extension popup at the top right corner of Chrome, then choose "open Auto Activist homepage." Click "Start!"
