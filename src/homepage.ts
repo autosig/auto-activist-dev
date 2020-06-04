@@ -1,6 +1,9 @@
 import * as $ from 'jquery';
 import { executeJs } from './automation/ext';
 import {readTemplate, UserData } from './automation/templates';
+import read = chrome.socket.read;
+import {sleep} from "./automation/inj";
+import {TabResponseMessage} from "./automation/common";
 
 console.log('hello!');
 
@@ -17,12 +20,18 @@ const userData: UserData = {
 const template = 'org.change.js';
 const url = 'https://www.change.org/p/we-demand-all-us-states-are-immediately-provided-functional-coronavirus-testing-kits';
 
+function executeTemplate(templatePath: string, userData: UserData, url: string): Promise<TabResponseMessage> {
+    return readTemplate(templatePath, userData).then(js => {
+        return executeJs(url, js);
+    });
+}
+
 $(function () {
-    $('#start').on('click', () => {
-        readTemplate(template, userData).then(js => {
-            executeJs(url, js, function (res) {
-                console.log("tab's response: ", res);
-            });
-        });
+    $('#start').on('click', async () => {
+        const start = new Date().getTime();
+        await executeTemplate(template, userData, url);
+        await executeTemplate('com.ipetitions.js', userData, 'https://www.ipetitions.com/petition/ct-gov-restore-our-voter-rights/?utm_source=wix&utm_medium=landing&utm_campaign=covid19');
+        const end = new Date().getTime();
+        console.log(`It took ${end - start}.`);
     });
 });

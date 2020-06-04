@@ -66,6 +66,7 @@ export async function sendKeys(elem, text) {
 }
 
 export async function clearAndSendKeys(elem, text) {
+    // todo: add check after sending keys to ensure that the element contains exactly `text`
     await deleteText(elem);
     await sendKeys(elem, text);
 }
