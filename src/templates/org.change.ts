@@ -11,7 +11,7 @@ run(async () => {
     await sendKeys(document.getElementById('stateCode'), "__STATE_ABBREV__");
     await clearAndSendKeys(document.getElementById('postalCode'), "__POSTAL_CODE__");
     // await setCheckbox(document.getElementById('public'), 'false');
-    await sleep(100); // just for testing purposes
+    await sleep(7000); // just for testing purposes
     return { success: true };
 }, [/https?:\/\/.*.change.org\//]);
 

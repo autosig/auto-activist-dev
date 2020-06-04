@@ -9,7 +9,7 @@ import Tab = chrome.tabs.Tab;
  * @param timeoutMs Timeout for tab to compete its task
  */
 export function executeJs(
-    url: string, jsInject: string, timeoutMs: number = 10000): Promise<TabResponseMessage> {
+    url: string, jsInject: string, timeoutMs: number = 100000): Promise<TabResponseMessage> {
     return new Promise<TabResponseMessage>((resolve, reject) => {
         chrome.tabs.create({ 'url': url, }, function (tab) {
             /* tab removal that can only be called once */
