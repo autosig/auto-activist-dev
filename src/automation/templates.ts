@@ -7,6 +7,8 @@ export interface UserData {
     postalCode?: string,
     emailAddress?: string,
     stateAbbrev?: string,
+    stateFull?: string,
+    streetAddress?: string,
     city?: string,
 }
 
