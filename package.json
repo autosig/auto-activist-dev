@@ -16,12 +16,14 @@
     "url": "https://github.com/chibat/chrome-extension-typescript-starter.git"
   },
   "dependencies": {
+    "async-mutex": "^0.2.3",
     "dom-element-is-natively-editable": "^1.0.4",
     "glob": "latest",
     "jquery": "^3.5.0",
     "keysim": "^2.1.0",
     "moment": "~2.24.0",
     "mustache": "^4.0.1",
+    "nan": "latest",
     "raw-loader": "^4.0.1",
     "script-loader": "^0.7.2",
     "simulate": "latest",

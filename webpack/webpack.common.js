@@ -1,23 +1,16 @@
 const webpack = require("webpack");
 const path = require('path');
-const glob = require('glob');
 const CopyPlugin = require('copy-webpack-plugin');
 const srcDir = '../src/';
-
-// glob all the template files for entry points
-const templateTsFiles = glob.sync(path.join(__dirname, srcDir + 'templates/**.ts')).reduce(function(obj, el){
-    obj['templates/' + path.parse(el).name] = el;
-    return obj
-}, {});
 
 module.exports = {
     entry: {
         popup: path.join(__dirname, srcDir + 'popup.ts'),
         options: path.join(__dirname, srcDir + 'options.ts'),
         background: path.join(__dirname, srcDir + 'background.ts'),
-        content_script: path.join(__dirname, srcDir + 'content_script.ts'),
+        "controlled-tab-content-script": path.join(__dirname, srcDir + 'controlled-tab-content-script.ts'),
         homepage: path.join(__dirname, srcDir + 'homepage.ts'),
-        ...templateTsFiles
+        overlay: path.join(__dirname, srcDir + 'overlay-content/overlay.ts')
     },
     output: {
         path: path.join(__dirname, '../dist/js'),
@@ -35,19 +28,29 @@ module.exports = {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
                 exclude: /node_modules/
+            },
+            {
+                test: /\.html$/,
+                use: 'raw-loader'
             }
         ]
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js']
+        extensions: ['.ts', '.tsx', '.js', '.html']
     },
     plugins: [
         // exclude locale files in moment
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new CopyPlugin([
-                { from: '.', to: '../' }
-            ],
-            {context: 'public' }
-        ),
-    ]
+            {
+                from: path.join(__dirname, '../public'),
+                to: path.join(__dirname, '../dist')
+            },
+            {
+                from: path.join(__dirname, '../src/overlay-content/overlay.css'),
+                to: path.join(__dirname, '../dist')
+            }
+        ]),
+    ],
+    devtool: 'cheap-module-source-map'
 };

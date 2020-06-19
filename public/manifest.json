@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Chrome Extension TypeScript Starter",
+  "name": "Auto Activist Dev",
   "description": "Chrome Extension, TypeScript, Visual Studio Code",
   "version": "1.0",
 
@@ -16,14 +16,24 @@
   },
 
   "content_scripts": [
-      {
-          "matches": ["<all_urls>"],
-          "js": ["js/vendor.js", "js/content_script.js"]
-      }
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "js/vendor.js",
+        "js/bot.js",
+        "js/controlled-tab-content-script.js"
+      ],
+      "css": ["overlay.css"],
+      "run_at": "document_start"
+    }
   ],
-
   "background": {
-    "scripts": ["js/vendor.js", "js/background.js"]
+    "scripts": [
+      "js/vendor.js",
+      "js/background.js"
+    ]
   },
 
   "permissions": [

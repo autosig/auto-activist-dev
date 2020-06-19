@@ -4,32 +4,26 @@ export const sites: SiteTable = {
     sites: [
         {
             domain: "change.org",
-            grantedUserData: ["firstName", "lastName", "emailAddress"],
             automationHandler: "change_org"
         },
         {
             domain: "thepetitionsite.com",
-            grantedUserData: [],
             automationHandler: "thepetitionsite_com"
         },
         {
             domain: "amnesty.org",
-            grantedUserData: [],
             automationHandler: "amnesty_org"
         },
         {
             domain: "act.colorofchange.org",
-            grantedUserData: [],
             automationHandler: "colorofchange_org"
         },
         {
             domain: "moveon.org",
-            grantedUserData: [],
             automationHandler: "moveon_org"
         },
         {
             domain: "justiceforbreonna.org",
-            grantedUserData: [],
             automationHandler: "justiceforbreonna_org"
         }
     ]
@@ -75,7 +69,7 @@ export const petitions: PetitionTable = {
                             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut mollis elit. Nulla risus augue, tristique a erat id, molestie luctus neque. Fusce id justo sit amet arcu tristique sagittis et vitae lectus. Quisque sit amet tincidunt turpis. Morbi est enim, interdum at nisi in, porta accumsan orci. Aliquam non turpis eu odio viverra faucibus. Sed sed risus sed tortor dignissim molestie vitae sed erat. Nullam ac urna tempor urna varius tempus. Praesent enim lectus, egestas vel ex a, mattis porttitor velit. Morbi vulputate consequat leo eget vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut mollis elit. Nulla risus augue, tristique a erat id, molestie luctus neque.",
                         },
                         {
-                            url: "https://www.amnesty.org/en/get-involved/take-action/george-floyd-police-violence-usa",
+                            url: "https://join.amnesty.org/page/61596/action/1?locale=en-US",
                             siteDomain: "amnesty.org",
                             id: "petition/https://www.amnesty.org/en/get-involved/take-action/george-floyd-police-violence-usa",
                             title: "Demand justice for George Floyd",
@@ -87,14 +81,7 @@ export const petitions: PetitionTable = {
                             id: "petition/https://act.colorofchange.org/sign/justiceforfloyd_george_floyd_minneapolis",
                             title: "#JusticeforFloyd: Demand the officers who killed George Floyd are charged with murder.",
                             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut mollis elit. Nulla risus augue, tristique a erat id, molestie luctus neque. Fusce id justo sit amet arcu tristique sagittis et vitae lectus. Quisque sit amet tincidunt turpis. Morbi est enim, interdum at nisi in, porta accumsan orci. Aliquam non turpis eu odio viverra faucibus. Sed sed risus sed tortor dignissim molestie vitae sed erat. Nullam ac urna tempor urna varius tempus. Praesent enim lectus, egestas vel ex a, mattis porttitor velit. Morbi vulputate consequat leo eget vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut mollis elit. Nulla risus augue, tristique a erat id, molestie luctus neque.",
-                        },
-                        {
-                            url: "https://act.colorofchange.org/sign/justiceforfloyd_george_floyd_minneapolis",
-                            siteDomain: "colorofchange.org",
-                            id: "petition/https://act.colorofchange.org/sign/justiceforfloyd_george_floyd_minneapolis",
-                            title: "#JusticeforFloyd: Demand the officers who killed George Floyd are charged with murder.",
-                            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut mollis elit. Nulla risus augue, tristique a erat id, molestie luctus neque. Fusce id justo sit amet arcu tristique sagittis et vitae lectus. Quisque sit amet tincidunt turpis. Morbi est enim, interdum at nisi in, porta accumsan orci. Aliquam non turpis eu odio viverra faucibus. Sed sed risus sed tortor dignissim molestie vitae sed erat. Nullam ac urna tempor urna varius tempus. Praesent enim lectus, egestas vel ex a, mattis porttitor velit. Morbi vulputate consequat leo eget vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut mollis elit. Nulla risus augue, tristique a erat id, molestie luctus neque.",
-                        },
+                        }
                     ]
                 },
                 {
@@ -186,7 +173,6 @@ export const users: UserTable = {
             middleName: 'marie',
             city: 'Thor',
             streetAddress: '111 Turmeric Drive',
-            timeAdded: new Date()
         }
     ]
 };
@@ -211,23 +197,47 @@ export const runs: RunTable = {
             userId: 'user/0',
             signatures: [
                 {
-                    id: 'sig/bwfjkwerf',
-                    status: 'success',
-                    petitionId: "petition/https://www.change.org/p/federal-bureau-of-investigation-disbarment-of-george-e-barnhill",
+                    id: 'sig/jirnewjvkw',
+                    status: 'queued',
+                    petitionId: "petition/https://www.thepetitionsite.com/152/670/429/justice-for-breonna-taylor-another-innocent-black-woman-murdered-by-police-in-her-own-home",
                     index: 0
                 },
                 {
+                    id: 'sig/nfuiwjkenfi',
+                    petitionId: "petition/https://act.colorofchange.org/sign/justiceforbre-breonna-taylor-officers-fired",
+                    index: 1,
+                    status: 'queued'
+                },
+                {
+                    id: 'sig/bwfjkwerf',
+                    status: 'queued',
+                    petitionId: "petition/https://www.change.org/p/federal-bureau-of-investigation-disbarment-of-george-e-barnhill",
+                    index: 2
+                },
+                {
                     id: 'sig/wvwtfvf',
-                    status: 'success',
-                    petitionId: "petition/https://www.change.org/p/human-rights-campaign-justice-for-ahmuad-aubrey-2",
-                    index: 1
+                    status: 'queued',
+                    petitionId: "petition/https://www.amnesty.org/en/get-involved/take-action/george-floyd-police-violence-usa",
+                    index: 3
                 },
                 {
                     id: 'sig/adgasdgtrg',
                     status: 'queued',
                     petitionId: "petition/https://www.change.org/p/district-attorney-tom-durden-justice-for-ahmaud-arbery-i-run-with-maud",
-                    index: 2
-                }
+                    index: 4
+                },
+                {
+                    id: 'sig/nrejkvkw',
+                    status: 'queued',
+                    petitionId: "petition/https://www.thepetitionsite.com/248/031/510/justice-for-george-floyd-another-black-man-needlessly-murdered-by-police",
+                    index: 5
+                },
+                {
+                    id: 'sig/hiuwfnmjieac',
+                    status: 'queued',
+                    petitionId: "petition/https://action.justiceforbreonna.org/sign/BreonnaWasEssential",
+                    index: 6
+                },
             ]
         },
         {

@@ -1,4 +1,4 @@
-import {UserData} from "../automation/templates";
+import {UserData} from "./schema";
 import {
     CategoryEntry,
     CauseEntry,
@@ -25,6 +25,7 @@ export abstract class DatabaseManager {
     abstract setUserTable(users: UserTable): Promise<void>;
     abstract getRunTable(): Promise<RunTable>;
     abstract setRunTable(runTable: RunTable): Promise<void>;
+    abstract setSignatureEntry(signatureEntry: SignatureEntry): Promise<SignatureEntry>;
     abstract getCauses(): Promise<Array<CauseEntry>>;
     abstract getCauseById(causeId: string): Promise<CauseEntry>;
     abstract getCategoriesByCause(causeId: string): Promise<Array<CategoryEntry>>;

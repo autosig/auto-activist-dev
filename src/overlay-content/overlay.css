@@ -1,0 +1,47 @@
+/* The Overlay (background) */
+#autosigOverlay {
+    position: fixed; /* Stay in place */
+    z-index: 2000000001; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    backdrop-filter: blur(2px);
+    pointer-events: none;
+}
+
+/* The Overlay Modal */
+#autosigModal {
+    background-color: #333333;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30em;
+    height: 10em;
+}
+
+#autosigOverlay .text {
+    color: #ffffff;
+    position: center;
+}
+
+#autosigModalTitle {
+    position: center;
+}
+
+#autosig-cancel {
+    position: absolute;
+    left: 50%;
+    width: 5em;
+    height: 2em;
+    transform: translate(-50%, -50%);
+    color: black;
+    background-color: white;
+    pointer-events: all;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+#autosig-cancel:focus {
+    background-color: lightgray;
+}

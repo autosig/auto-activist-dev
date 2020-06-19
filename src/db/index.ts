@@ -1,11 +1,10 @@
 import { uuid } from "uuidv4";
-import {UserData} from "../automation/templates";
 import {
     CategoryEntry,
     CauseEntry,
     PetitionEntry,
     PetitionTable, RunEntry, RunTable, SignatureEntry,
-    SiteTable,
+    SiteTable, UserData,
     UserEntry,
     UserTable
 } from "./schema";
@@ -32,7 +31,8 @@ function values<T>(mapping: Mapping<T>) {
 
 type PetitionTablePredicate = {
     causePred: (cause: CauseEntry) => boolean,
-    categoryPred: (category: CategoryEntry) => boolean,
+    categoryPred: (category: CategoryEntry) => boolean, filterMapRunsTable()
+
     petitionPred: (petition: PetitionEntry) => boolean,
 }
 
@@ -180,7 +180,6 @@ export class LocalStorageDatabaseManager extends DatabaseManager {
         return this.getUserTable().then((userTable: UserTable) => {
             const entry: UserEntry = {
                 id: id || `user/${uuid()}`,
-                timeAdded: new Date(),
                 ...user
             };
             userTable.users.push(entry);
@@ -213,6 +212,16 @@ export class LocalStorageDatabaseManager extends DatabaseManager {
                 const signedPetitionIds = signedEntries.map(e => e.petitionId);
                 return petitions.filter(p => !signedPetitionIds.includes(p.id));
             });
+    }
+
+    setSignatureEntry(signatureEntry: SignatureEntry): Promise<SignatureEntry> {
+        return this.getRunTable().then(runTable => {
+            runTable.runs.forEach(run => {
+                const idx = run.signatures.findIndex(sig => sig.id === signatureEntry.id);
+                run.signatures[idx] = signatureEntry;
+            });
+            return this.setRunTable(runTable);
+        }).then(() => signatureEntry);
     }
 
     filterPetitionTable(pred: PetitionTablePredicate): Promise<PetitionTable> {
