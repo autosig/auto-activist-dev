@@ -1,6 +1,8 @@
 import {TabController} from "../../tab-controller/tab-controller";
-import {webBotReady} from "../../tab-controller/until";
+import {urlMatches, webBotReady} from "../../tab-controller/until";
 import {assertNoCaptcha, PetitionScriptParams, PetitionScriptResult, sleep} from "../script-lib";
+
+const stateSelectControl = '//div[@data-key="state"]//div[contains(@class, "selectize-control")]';
 
 async function script(tc: TabController, p: PetitionScriptParams): Promise<PetitionScriptResult> {
     await tc.open(p.url);
@@ -10,10 +12,10 @@ async function script(tc: TabController, p: PetitionScriptParams): Promise<Petit
     await tc.bot.type('id=sign_email', p.userData.emailAddress);
     await tc.bot.type('id=sign_address', p.userData.streetAddress);
     await tc.bot.type('id=sign_city', p.userData.city);
-    await tc.bot.click('id=sign__field__state');
-    await tc.bot.type('xpath=//div[@id="sign__field__state"]//input[not(@id)]', [p.userData.stateFull, "ENTER"]);
+    await tc.bot.click('xpath=//div[@data-key="state"]');
+    await tc.bot.type(`xpath=${stateSelectControl}//input`, [p.userData.stateFull]);
     await sleep(10);
-    await tc.bot.click(`//div[@data-value="${p.userData.stateAbbrev.toUpperCase()}"]`);
+    await tc.bot.click(`xpath=${stateSelectControl}//div[@data-selectable and contains(@class, "active")]`);
     await tc.bot.type('id=sign_zip', p.userData.postalCode);
     await tc.bot.setCheckbox('id=sign_anon', true);
     await assertNoCaptcha(tc);

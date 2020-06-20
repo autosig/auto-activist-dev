@@ -24,8 +24,11 @@ export abstract class DatabaseManager {
     abstract getUserTable(): Promise<UserTable>;
     abstract setUserTable(users: UserTable): Promise<void>;
     abstract getRunTable(): Promise<RunTable>;
+    abstract addRun(run: RunEntry): Promise<RunEntry>;
     abstract setRunTable(runTable: RunTable): Promise<void>;
     abstract setSignatureEntry(signatureEntry: SignatureEntry): Promise<SignatureEntry>;
+    abstract createRunEntry(petitionIds: string[], userId: string): Promise<RunEntry>;
+    abstract getRunById(runId: string): Promise<RunEntry>;
     abstract getCauses(): Promise<Array<CauseEntry>>;
     abstract getCauseById(causeId: string): Promise<CauseEntry>;
     abstract getCategoriesByCause(causeId: string): Promise<Array<CategoryEntry>>;

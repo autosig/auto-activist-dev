@@ -146,6 +146,34 @@ export class LocalStorageDatabaseManager extends DatabaseManager {
         return this.getCauseById(causeId).then(cause => cause.categories);
     }
 
+    addRun(run: RunEntry): Promise<RunEntry> {
+        return this.getRunTable().then(runTable => {
+            runTable.runs.push(run);
+            return this.setRunTable(runTable)
+        }).then(() => run);
+    }
+
+    createRunEntry(petitionIds: string[], userId: string): Promise<RunEntry> {
+        const signatures: SignatureEntry[] = petitionIds.map((petitionId, index) => ({
+            petitionId,
+            index,
+            id: `signature/${uuid()}`,
+            status: "queued"
+        }));
+        const run: RunEntry = {
+            id: `run/${uuid()}`,
+            signatures,
+            userId
+        };
+        return this.addRun(run);
+    }
+
+    getRunById(runId: string): Promise<RunEntry> {
+        return this.getRunTable()
+            .then(runTable => runTable.runs.find(run => run.id === runId))
+            .then(runEntry => runEntry ? runEntry : Promise.reject(`id ${runId} not found`))
+    }
+
     getCategoryById(categoryId: string): Promise<CategoryEntry> {
         return this.getPetitionTable().then((petitionTable: PetitionTable) => {
             const causes = petitionTable.causes;

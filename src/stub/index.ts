@@ -56,8 +56,9 @@ export function stubbify(route: Route, instance) {
 function sendToStub<T>(route: Route, method: string, args: Array<any>): Promise<any> {
     if (args === undefined)
         args = [];
-    const cmd: InvocationRequest = {method, args};
-    return route(cmd).then(response => {
+    const req: InvocationRequest = {method, args};
+    return route(req).then(response => {
+        console.info(`${req.method}(${req.args.map(a => JSON.stringify(a)).join(", ")}) -> ${JSON.stringify(response)}`);
         if (response.status === "success") {
             return response.ret;
         } else if (response.status === "error") {
