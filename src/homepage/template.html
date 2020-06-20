@@ -1,0 +1,37 @@
+<div>
+    <form id="user-data">
+        {{#userFields}}
+        <label for="{{id}}">{{label}}</label>
+        <input id="{{id}}" value="{{label}}">
+        <br>
+        {{/userFields}}
+        <button type="submit" id="submit-user-data">Submit</button>
+    </form>
+</div>
+
+<div>
+    <form id="petition-selection">
+        <div id="petition-checkboxes">
+            <ul>
+                {{#categories}}
+                <li>
+                    <h1><span class="category-title">{{title}}</span></h1>
+                    <span class="category-description">{{description}}</span>
+                    <ul>
+                        {{#petitions}}
+                        <li>
+                            <input type="checkbox" id="{{id}}">
+                            <label for="{{id}}"><a href="{{url}}" target="_blank">{{title}} -- {{siteDomain}}</a></label>
+                        </li>
+                        {{/petitions}}
+                    </ul>
+                </li>
+                {{/categories}}
+            </ul>
+        </div>
+    </form>
+</div>
+
+<div>
+    <button id="run">Sign Petitions!</button>
+</div>
