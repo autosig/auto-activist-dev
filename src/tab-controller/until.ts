@@ -30,3 +30,9 @@ export function urlMatches(urlPattern: RegExp): UntilCondition {
     }
 }
 
+export function elementInteractable(locator: string) {
+    return {
+        test: tc => tc.bot.isElementInteractable(locator),
+        description: 'element "' + locator + '" to be interactable'
+    }
+}

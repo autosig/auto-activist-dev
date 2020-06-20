@@ -56,7 +56,7 @@ export function signPetition(params: SignPetitionParams, runCancelledPromise: Pr
             console.info('resultant signature entry', sigEntry);
             return setSigStatusInDb(sigEntry)
         })
-        .then(() => sleep(100))
+        .then(() => sleep(1000))  // TODO: remove
         .then(() => tc.close())
         .then(() => res);
 }

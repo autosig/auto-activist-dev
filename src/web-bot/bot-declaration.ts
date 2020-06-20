@@ -46,6 +46,9 @@ export interface SelBot {
         // @throws {bot.Error} If the element is not an editable text field.
         clear (element: Element): void;
     },
+    dom: {
+        isInteractable(element: Element): boolean;
+    }
     setWindow(window: Window): void;
 }
 

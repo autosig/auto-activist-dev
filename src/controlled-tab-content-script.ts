@@ -19,13 +19,13 @@ import {
 
     if (settings.runAtLoadJs)
         (new Function(settings.runAtLoadJs))();
-    // TODO: is something like DOMContentLoaded faster and still safe?
-    window.onload = async () => {
+    // TODO: is it safe to start automation after DOMContentLoaded? (vs window.onload)
+    document.addEventListener('DOMContentLoaded', async () => {
         const webBot = await WebBot.create();
         console.log(webBot);
         router.addRoute(WEB_BOT_CMD, req => Promise.resolve(stubDispatch(req, webBot)));
         router.addRoute(WEB_BOT_READY, () => Promise.resolve(webBot.webBotReady()));
-    };
+    });
 
     router.addRoute(EVAL_SCRIPT_RUN, (js: string) => Promise.resolve(eval(js)));
 

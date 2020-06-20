@@ -45,7 +45,6 @@ export class WebBot {
             text = text.map(s => this.bot.Keyboard.Keys[s] ? this.bot.Keyboard.Keys[s] : s);
         }
         const elem = this.findElement(locator);
-        console.log('typing', text, elem);
         this.bot.action.type(elem, text);
         return Promise.resolve();
     }
@@ -93,5 +92,13 @@ export class WebBot {
     public getElementAttribute(locator: string, attribute: string): Promise<string> {
         const elem = this.findElement(locator);
         return Promise.resolve(elem.getAttribute(attribute));
+    }
+
+    public isElementInteractable(locator: string): Promise<boolean> {
+        const elem = this.core.locators.findElementOrNull(locator);
+        if (elem === null)
+            return Promise.resolve(false);
+
+        return Promise.resolve(this.bot.dom.isInteractable(elem));
     }
 }
