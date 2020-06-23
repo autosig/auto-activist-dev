@@ -1,15 +1,15 @@
-<div>
+<div class="centered">
     <form id="user-data">
         {{#userFields}}
         <label for="{{id}}">{{label}}</label>
-        <input id="{{id}}" value="{{label}}">
+        <input type="text" id="{{id}}" placeholder="{{label}}">
         <br>
         {{/userFields}}
         <button type="submit" id="submit-user-data">Submit</button>
     </form>
 </div>
-
-<div>
+<hr />
+<div class="centered">
     <form id="petition-selection">
         <div id="petition-checkboxes">
             <ul>
@@ -17,9 +17,9 @@
                 <li>
                     <h1><span class="category-title">{{title}}</span></h1>
                     <span class="category-description">{{description}}</span>
-                    <ul>
+                    <ul class="petitions-container">
                         {{#petitions}}
-                        <li>
+                        <li class="checkbox-row">
                             <input type="checkbox" id="{{id}}">
                             <label for="{{id}}"><a href="{{url}}" target="_blank">{{title}} -- {{siteDomain}}</a></label>
                         </li>
@@ -31,7 +31,22 @@
         </div>
     </form>
 </div>
+<hr />
 
-<div>
+<div class="centered">
+    <div>
+        <div class="checkbox-row">
+            <input type="checkbox">
+            <span> I would like to abstain from displaying my name on petitions whenever possible (N.B. Some sites do not provide this option).</span>
+        </div>
+        <div class="checkbox-row">
+            <input type="checkbox">
+            <span>I would like to provide my contact informatoin to advocacy organizations associated with selected petitions whenever possible.</span>
+        </div>
+        <div class="checkbox-row">
+            <input type="checkbox">
+            <span>I understand that Auto Advocacy must open and close Chrome tabs in order to submit petitions, and that I can quit at any time.</span>
+        </div>
+    </div>
     <button id="run">Sign Petitions!</button>
 </div>
