@@ -1,14 +1,18 @@
 import {TabController} from "../../tab-controller/tab-controller";
 import {webBotReady} from "../../tab-controller/until";
-import {assertNoCaptcha, logError, PetitionScriptParams, PetitionScriptResult} from "../script-lib";
+import {assertNoCaptcha, FailureReason, logError, PetitionScriptParams, PetitionScriptResult} from "../script-lib";
 
 const editInfoIconLocator = 'xpath=//form//button[@type="button"]';
 const signThisPetitionMobileStart = 'xpath=//button[descendant::text()="Sign this petition" and not(@type = "submit")]';
+const victorySymbol = 'xpath=//span[contains(@class, "symbol-victory")]';
 
 async function script(tc: TabController, p: PetitionScriptParams): Promise<PetitionScriptResult> {
     await tc.open(p.url);
     await tc.wait(webBotReady(), 10000);
     await logError(async () => await tc.bot.click(signThisPetitionMobileStart));
+    if (await tc.bot.elementExists(victorySymbol)) {
+        throw FailureReason.PETITION_COMPLETE
+    }
     if (await tc.bot.elementExists(editInfoIconLocator)) {
         await tc.bot.click(editInfoIconLocator);
     }

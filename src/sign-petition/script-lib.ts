@@ -1,6 +1,12 @@
 import {UserData} from "../db/schema";
 import {TabController} from "../tab-controller/tab-controller";
 
+export enum FailureReason {
+    RECAPTCHA = "recaptcha",
+    PETITION_COMPLETE = "petition complete",
+    TAB_CLOSED = "tab closed"
+}
+
 export interface PetitionScriptResult {
     success: boolean
 }
@@ -21,7 +27,7 @@ export async function hasCaptcha(tc: TabController): Promise<boolean> {
 
 export async function assertNoCaptcha(tc: TabController): Promise<void> {
     if (await hasCaptcha(tc))
-        throw new Error("recaptcha")
+        throw FailureReason.RECAPTCHA
 }
 
 export function sleep(ms: number): Promise<void> {

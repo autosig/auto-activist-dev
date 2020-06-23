@@ -19,7 +19,7 @@ export class TabController {
         private tabId: number
     ) {
         this.url = TabController.startingURL;
-        this.onCloseStack.push(() => browser.tabs.remove(tabId));
+        this.onCloseStack.push(() => this.removeTab());
         this.bot = webBotStub(tabId);
         this.setupOnUpdatedListener();
     }
@@ -30,10 +30,29 @@ export class TabController {
                 const tc = new TabController(tab.id);
                 return setControlledTabSettings({tabId: tab.id}).then(() => tc);
             } catch (e) {
-                console.log(e);
+                console.log(e && e.message || e);
                 return Promise.reject(e);
             }
         });
+    }
+
+    private tabExists(): Promise<boolean> {
+        return browser.tabs.get(this.tabId)
+            .then(() => true)
+            .catch(() => false);
+    }
+
+    private performIfTabExists(cb): Promise<void> {
+        return this.tabExists().then(exists => {
+            console.log(exists);
+            if (exists)
+                return cb();
+        })
+    }
+
+    private removeTab(): Promise<void> {
+        console.log('removing tab if exists');
+        return this.performIfTabExists(() => browser.tabs.remove(this.tabId));
     }
 
     public getTabId(): number {
@@ -73,11 +92,15 @@ export class TabController {
     private setupOnUpdatedListener() {
         const listener = this.onUpdatedTab.bind(this);
         browser.tabs.onUpdated.addListener(listener);
-        this.onCloseStack.push(() => browser.tabs.onUpdated.removeListener(listener));
+        this.onCloseStack.push(() => {
+            console.log('removing listener');
+            return browser.tabs.onUpdated.removeListener(listener);
+        });
     }
 
     public close(): Promise<void> {
         /* sequentially processes each of the closing callbacks */
+        console.log('closing tab');
         return this.onCloseStack.reverse().reduce(
             (promise: Promise<void>, closeFn: () => Promise<void>) => promise.then(closeFn),
             Promise.resolve());
