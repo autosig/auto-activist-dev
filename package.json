@@ -21,7 +21,7 @@
     "glob": "latest",
     "jquery": "^3.5.0",
     "keysim": "^2.1.0",
-    "moment": "~2.24.0",
+    "moment": "~2.29.4",
     "mustache": "^4.0.1",
     "nan": "latest",
     "raw-loader": "^4.0.1",
